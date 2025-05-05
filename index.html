@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Candidaturas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1><a href="../index.html">Menu</a></h1>
+        <h1>Catálogo de Candidaturas</h1>
+    </div>
+  
+    <div class="container">
+      <!-- Formulário para adicionar nova vaga -->
+      <div class="tool-box">
+        <form id="jobForm" class="tool-link">
+          <div class="tool-title">Adicionar Nova Candidatura</div>
+          <div class="tool-description">
+            Preencha os campos abaixo para registrar uma nova candidatura.
+          </div>
+  
+          <label for="jobTitle">Nome da Vaga:</label>
+          <input type="text" id="jobTitle" name="jobTitle" required>
+  
+          <label for="company">Empresa:</label>
+          <input type="text" id="company" name="company" required>
+  
+          <label for="link">Link da Vaga:</label>
+          <input type="url" id="link" name="link" required>
+  
+          <label for="date">Data da Candidatura:</label>
+          <input type="date" id="date" name="date" required>
+  
+          <button type="submit">Adicionar</button>
+        </form>
+      </div>
+  
+      <!-- Botões de exportar e importar -->
+      <div class="tool-box ">
+        <div class="tool-title">Exportar/Importar Dados</div>
+        <div class="tool-description">
+          Exporte suas candidaturas como JSON ou importe um arquivo JSON.
+        </div>
+        <button id="exportBtn">Exportar para JSON</button>
+        <label for="importFile" class="import-label">Importar JSON
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+        </label>
+      </div>
+
+      <!-- Campo para anotar links de vagas para candidatar -->
+      <div class="tool-box vagas-salvas">
+        <div class="tool-title">Vagas para Candidatar</div>
+        <div class="tool-description">
+          Cole aqui os links das vagas que você se candidatará.
+        </div>
+        <textarea class="texto-salvas" id="vagasSalvas"></textarea>
+      </div>
+
+  
+      <!-- Tabela de vagas cadastradas -->
+      <div class="tool-box wide-box">
+        <div class="tool-title">Vagas Cadastradas</div>
+        <table id="jobTable">
+          <thead>
+            <tr>
+              <th>Nome da Vaga</th>
+              <th>Empresa</th>
+              <th>Link</th>
+              <th>Data da Candidatura</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div class="footer">
+      <p>Desenvolvido por você 😊</p>
+    </div>
+  
+    <script src="script.js"></script>
+  </body>
+  </html>
