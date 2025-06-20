@@ -3,16 +3,43 @@ const jobForm = document.getElementById('jobForm');
 const jobTableBody = document.querySelector('#jobTable tbody');
 const exportBtn = document.getElementById('exportBtn');
 const importFile = document.getElementById('importFile');
-const vagasSalvasTextarea = document.getElementById('vagasSalvas')
+
+let novoLinkInput, salvarLinkBtn, cardsContainer;
 
 // Dados das vagas
 let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
-vagasSalvasTextarea.value = localStorage.getItem('vagasSalvas') || '';
+let savedLinks = JSON.parse(localStorage.getItem('savedLinks')) || [];
 
-// Salvar as vagas no localStorage
-vagasSalvasTextarea.addEventListener('input', () => {
-  localStorage.setItem('vagasSalvas', vagasSalvasTextarea.value);
-});
+function saveLinksToStorage() {
+  localStorage.setItem('savedLinks', JSON.stringify(savedLinks));
+}
+
+function renderSavedLinks(container) {
+  if(!cardsContainer) return
+
+  cardsContainer.innerHTML = ''; // Limpa o conteúdo atual 
+
+  if (savedLinks.length === 0) {
+    cardsContainer.innerHTML = '<p style="color: #aaa;">Nenhum link salvo.</p>';
+    return;
+  }
+
+  savedLinks.forEach((link, index) => {
+    const card = document.createElement('div');
+    card.className = 'link-card';
+    card.innerHTML = `
+      <a href="${link}" target="_blank">${link}</a>
+      <button class="delete-btn" onclick="removeLink(${index})">🗑</button>
+    `;
+    cardsContainer.appendChild(card);
+  });
+}
+
+window.removeLink = function(index){
+  savedLinks.splice(index, 1);
+  saveLinksToStorage();
+  renderSavedLinks();
+}
 
 // Função para renderizar a tabela de vagas
 function renderJobs() {
@@ -96,5 +123,23 @@ importFile.addEventListener('change', (e) => {
 
 // Renderizar vagas ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
+  novoLinkInput = document.getElementById('novoLink');
+  salvarLinkBtn = document.getElementById('salvarLinkBtn');
+  cardsContainer = document.getElementById('cardsContainer');
+
+  salvarLinkBtn.addEventListener('click', () => {
+    const link = novoLinkInput.value.trim();
+  
+    if (link && /^https?:\/\//.test(link)) {
+      savedLinks.push(link);
+      saveLinksToStorage();
+      renderSavedLinks(cardsContainer);
+      novoLinkInput.value = '';
+    } else {
+      alert('Link inválido! Certifique-se de incluir "http://" ou "https://".');
+    }
+  });
+
+  renderSavedLinks(cardsContainer);
   renderJobs(); // Garante que os dados sejam exibidos ao carregar a página
 });

@@ -53,9 +53,16 @@
       <div class="tool-box vagas-salvas">
         <div class="tool-title">Vagas para Candidatar</div>
         <div class="tool-description">
-          Cole aqui os links das vagas que você se candidatará.
+          Adicione links de vagas que você planeja se candidatar.
         </div>
-        <textarea class="texto-salvas" id="vagasSalvas"></textarea>
+         <!-- Campo para inserir link -->
+        <input type="url" id="novoLink" placeholder="https://exemplo.com/vaga"  />
+
+        <!-- Botão para salvar -->
+        <button id="salvarLinkBtn">Salvar Link</button>
+
+        <!-- Container para mostrar os cards -->
+        <div id="cardsContainer" class="cards-container"></div>
       </div>
 
   
